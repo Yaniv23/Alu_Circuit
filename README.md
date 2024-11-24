@@ -1,4 +1,4 @@
-#Top Level ALU System - VHDL Project
+# Top Level ALU System - VHDL Project
 
 This project implements a top-level Arithmetic Logic Unit (ALU) system using VHDL. The design includes two 16-bit registers and an ALU capable of performing arithmetic and logic operations on the data stored in these registers. The design is simulated using a testbench in Vivado.
 
