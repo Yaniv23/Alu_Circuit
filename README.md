@@ -1,72 +1,56 @@
-# Top Level ALU System - VHDL Project
+# Top-Level ALU System
 
-This project implements a top-level Arithmetic Logic Unit (ALU) system using VHDL. The design includes two 16-bit registers and an ALU capable of performing arithmetic and logic operations on the data stored in these registers. The design is simulated using a testbench in Vivado.
+This project implements a **16-bit Arithmetic Logic Unit (ALU) System** with a shared data bus and control signals. The design uses a structural architecture to integrate components such as registers and an ALU. A testbench is provided to verify the functionality of the system.
 
-Project Structure
+## Features
+- **16-bit Registers (A and B):** Load and store data.
+- **16-bit ALU:**
+  - Supports various arithmetic and logical operations based on control signals.
+  - Outputs zero (`zr`) and negative (`ng`) flags.
+- **Shared Data Bus:** Facilitates communication between components.
+- **Tri-State Bus Control:** Ensures proper data flow and high-impedance behavior when not in use.
 
-Files
+## Files
+- **`Top_Level_ALU_System.vhd`**: VHDL description of the ALU system.
+- **`Top_Level_ALU_Testbench.vhd`**: Testbench for simulating the ALU system.
 
-Top_Level_ALU_System.vhd: Implements the top-level ALU system, which includes two 16-bit registers (Register_A and Register_B) and an ALU component (ALU_Unit). The data_bus is used as a shared inout port to manage data input and ALU output.
+## System Overview
+### Ports
+- **Inputs:**
+  - `clk`: Clock signal.
+  - `load_a`, `load_b`: Load signals for Registers A and B.
+  - `enable_alu`: Enables the ALU to perform operations.
+  - `zx, nx, zy, ny, f, no, cin`: Control signals for ALU operations.
+  - `data_bus`: Shared bidirectional 16-bit data bus.
+- **Outputs:**
+  - `zr`: Zero flag.
+  - `ng`: Negative flag.
 
-Top_Level_ALU_Testbench.vhd: A testbench used to simulate the behavior of the top-level ALU system. The testbench initializes the system, loads data into the registers, and performs an addition operation using the ALU.
+### Internal Components
+1. **Registers:**
+   - Two 16-bit registers (`Register_A` and `Register_B`) for storing operands.
+2. **ALU:**
+   - Performs arithmetic and logical operations.
+   - Operates based on the control signals.
 
-Components
+## Usage
+### Simulation
+1. Load the VHDL files into a simulation tool (e.g., ModelSim, Vivado).
+2. Run the **`Top_Level_ALU_Testbench`** for functional verification.
+3. Observe waveforms to verify:
+   - Register loading behavior.
 
-Register_16Bit: Stores a 16-bit value. Includes load control to determine when data is loaded into the register.
 
-ALU: Performs arithmetic and logic operations (e.g., addition) based on control signals provided.
+### Testbench Highlights
+- Loads values into registers A and B.
+- Performs addition using the ALU.
+- Validates results via the shared data bus and flag outputs.
 
-Control Signals
+## How to Run
+1. Compile both `Top_Level_ALU_System.vhd` and `Top_Level_ALU_Testbench.vhd`.
+2. Simulate the testbench.
+3. Analyze the simulation results to ensure correct ALU behavior.
 
-clk: Clock signal used to synchronize operations.
-
-load_a, load_b: Load signals for Register A and Register B, respectively.
-
-enable_alu: Enables the ALU operation, allowing it to perform the arithmetic or logic operation.
-
-zx, nx, zy, ny, f, no, cin: Control signals for ALU operations (e.g., zero input, negate, add, etc.).
-
-Data Flow
-
-The data_bus is used for both input and output.
-
-When loading data into registers (load_a or load_b), the bus is set to high-impedance ('Z') so that external input can drive it.
-
-When the ALU is enabled, the result is driven onto the data_bus.
-
-How to Run the Simulation
-
-Open Vivado and create a new project.
-
-Add the VHDL files (Top_Level_ALU_System.vhd and Top_Level_ALU_Testbench.vhd) to the project.
-
-Synthesize the design to ensure there are no errors.
-
-Run the simulation using Top_Level_ALU_Testbench.vhd.
-
-Observe the waveforms to verify the correctness of the operations (e.g., register loading, ALU addition).
-
-Usage Notes
-
-The ALU performs an ADD operation when f is set to '1'. The other control signals (zx, nx, zy, ny, no, cin) modify the inputs to the ALU for various logical or arithmetic operations.
-
-The data bus behavior is controlled by the tri-state logic, ensuring it is either driven by the ALU or available for external input during loading operations.
-
-Key Considerations
-
-Timing: The clock (clk) is used throughout the design to synchronize operations for both the registers and the ALU.
-
-Tri-State Logic: The data_bus is managed with high-impedance ('Z') states to avoid contention when multiple components need access.
-
-Dependencies
-
-Vivado (recommended for synthesis and simulation).
-
-Basic understanding of VHDL, clocked processes, and tri-state buffers is required to modify or extend the project.
-
-Future Improvements
-
-Add support for more ALU operations such as subtraction or logical shifts.
-
-Implement more complex test cases in the testbench to fully verify the ALU's functionality.
+## Contributing
+Feel free to open issues or submit pull requests for improvements to the ALU design or testbench.
 
